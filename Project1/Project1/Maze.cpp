@@ -9,15 +9,26 @@ void Maze::GenerateRandomArray() {
 
 	//Random產生迷宮內容
 	srand((unsigned)time(0));
+	//srand(2);
 	for (int row = 0; row < SIZE; row++) {
 		for (int col = 0; col < SIZE; col++) {
 
-			Map[row][col] = (rand() % 2);//0為可走 1為牆壁 之後訂2為走過路徑
-
+			//Map[row][col] = (rand() % 4);//0為可走 1為牆壁 之後訂2為走過路徑
+			if (rand() % 4 == 0)
+			{
+				Map[row][col] = 1;
+			}
+			else
+			{
+				Map[row][col] = 0;
+			}
 			//如果是迷宮邊緣，設為牆壁
 			if (row == 0 || col == SIZE - 1 || row == SIZE - 1 || col == 0) {
 				Map[row][col] = 1;
 			}
+
+			Map[1][1] = 0;
+			Map[SIZE - 2][SIZE - 2] = 0;
 		}
 	}
 }
@@ -37,17 +48,17 @@ void Maze::PrintMaze() {
 }
 
 int Maze::visit(int startX, int startY) {
+	//PrintMaze();
 	//目前start點可探索
 	if (Map[startX][startY] == 0 ) {
 		Map[startX][startY] = 2;
 
 		//繼續往下探索， 但要是還沒探索完且沒辦法繼續探索，則取消路線
 		if (Map[endX][endY] == 0 &&
-
-			!(visit(startX + 1, startY) ||
-				visit(startX - 1, startY) ||
-				visit(startX, startY + 1) ||
-				visit(startX, startY - 1))) {
+			!(visit(startX , startY+1) ||
+				visit(startX + 1, startY) ||
+				visit(startX, startY - 1) ||
+				visit(startX-1, startY))) {
 			//滿足條件，發現四周都沒有路了，取消路線
 
 			Map[startX][startY] = 0;//設為未走過
@@ -57,9 +68,9 @@ int Maze::visit(int startX, int startY) {
 
 		}
 	}
-	else if (Map[endX][endY] == 1) {
+	/*else if (Map[endX][endY] == 1) {
 		Map[startX][startY] = 0;
-	}
+	}*/
 	
 	return Map[endX][endY];
 }

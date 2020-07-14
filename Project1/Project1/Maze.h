@@ -1,14 +1,14 @@
 #pragma once
 #include <iostream>
 using namespace std;
-#define SIZE 7
+#define SIZE 30
 
 class Maze {
 public:
 
 	//Maze Map
 	//int Map[SIZE][SIZE];
-	int Map[SIZE][SIZE] = { {1, 1, 1, 1, 1, 1, 1},
+	int Map[SIZE][SIZE] = {		{1, 1, 1, 1, 1, 1, 1},
 								{1, 0, 0, 0, 0, 0, 1},
 								{1, 0, 1, 0, 1, 0, 1},
 								{1, 0, 0, 1, 0, 0, 1},
